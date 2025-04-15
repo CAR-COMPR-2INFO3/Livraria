@@ -1,4 +1,5 @@
 <script setup>
+
 const Livros = ref([
   { id: 1, titulo: '', autor: '', preco: 0},
   { id: 2, titulo: '', autor: '', preco: 0 },
