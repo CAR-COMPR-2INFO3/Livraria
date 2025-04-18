@@ -7,8 +7,8 @@ const Livros = ref([
   { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O' Hearn', preco: 41.00},
   { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90},
   { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69},
-  { id: 1, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason' preco: 34.90},
-  { id: 1, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90},
+  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason' preco: 34.90},
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90},
   
 ]);
 const Carrinho = ref([]);
