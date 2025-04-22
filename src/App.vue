@@ -1,7 +1,7 @@
 <script setup>
 
 const Livros = ref([
-  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 0},
+  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50},
   { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90 },
   { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90 },
   { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00},
