@@ -1,5 +1,5 @@
 <script setup>
-
+import { ref, computed } from "vue";
 const Livros = ref([
   { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 0},
   { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90 },
@@ -9,16 +9,28 @@ const Livros = ref([
   { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69},
   { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90},
   { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90},
-  
+
 ]);
 const Carrinho = ref([]);
 function AdicionarCarrinho() {
      Carrinho.value.push(Livros.value[0]);
+
 }
 function RemoverCarrinho() {
      Carrinho.value.pop();
 }
+// Soma automática baseada no conteúdo do carrinho
+const valorTotal = computed(() => {
+  return Carrinho.value.reduce((total, livro) => total + livro.preco, 0);
+});
 
+const totalCompras = computed(() => {
+  return {
+    produtos: valorTotal.value,
+    frete: 'Grátis',
+    total: valorTotal.value,
+  };
+});
 </script>
 
 <template>
