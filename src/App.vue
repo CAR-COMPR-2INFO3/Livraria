@@ -1,6 +1,7 @@
 <script setup>
 
 import { ref, computed } from 'vue';
+import cabecalho from "./components/header.vue";
 
 const Livros = ref([
     { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50 },
@@ -26,51 +27,9 @@ function RemoverCarrinho() {
 <template>
 
     <header>
-        <nav>
-            <div>
-                <a href="App.vue">IFbooks | Apreço a leitura</a>
-            </div>
-
-            <div>
-                <form action="#" method="get">
-                    <p>
-                        <input type="text" id="barra-pesquisa" placeholder="Pesquisar">
-                        <button type="submit">
-                            <i class="fi fi-sr-shopping-cart"></i>
-                        </button>
-                    </p>
-                </form>
-            </div>
-            <div>
-                <ul>
-                    <li>
-                        <a href="#">Termos</a>
-                    </li>
-                    <li>
-                        <a href="#">Equipe</a>
-                    </li>
-                    <li>
-                        <a href="#">Envio</a>
-                    </li>
-                    <li>
-                        <a href="#">Devoluções</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul>
-                    <li>
-                        <p><i class="fi fi-sr-shopping-cart"></i></p>
-                    </li>
-                    <li>
-                        <p><i class="fi fi-ss-heart"></i></p>
-                    </li>
-                    <li>
-                        <p><i class="fi fi-sr-user"></i></p>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+        <div class="cabecalho">
+            <cabecalho />
+        </div>
     </header>
 
     <main>
