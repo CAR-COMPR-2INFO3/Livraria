@@ -2,26 +2,21 @@
 import footerComp from './componentes/footer.vue'
 import { ref, computed } from 'vue'
 
+import { ref, computed } from 'vue';
+import cabecalho from "./components/header.vue";
+
 const Livros = ref([
-  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 0 },
-  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.9 },
-  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.9 },
-  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.0 },
-  {
-    id: 5,
-    titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado',
-    autor: 'Audrey Wood',
-    preco: 64.9,
-  },
-  {
-    id: 6,
-    titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada',
-    autor: 'Kiyosaki Robert T',
-    preco: 54.69,
-  },
-  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.9 },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.9 },
-])
+    { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50 },
+    { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90 },
+    { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90 },
+    { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00 },
+    { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90 },
+    { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69 },
+    { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90 },
+    { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90 }
+
+]);
+
 const Carrinho = ref([])
 function AdicionarCarrinho() {
   Carrinho.value.push(Livros.value[0])
@@ -29,6 +24,7 @@ function AdicionarCarrinho() {
 function RemoverCarrinho() {
   Carrinho.value.pop()
 }
+
 // Soma automática baseada no conteúdo do carrinho
 const valorTotal = computed(() => {
   return Carrinho.value.reduce((total, livro) => total + livro.preco, 0)
@@ -44,7 +40,16 @@ const totalCompras = computed(() => {
 </script>
 
 <template>
-  <carrinho/>
+    <header>
+        <div class="cabecalho">
+            <cabecalho />
+        </div>
+    </header>
+
+    <main>
+        <section class="autor"></section>
+        
+          <carrinho/>
     <div class="carrinho">
       <div class="adicionar">
         <h1>Carrinho</h1>
@@ -83,6 +88,9 @@ const totalCompras = computed(() => {
     <div class="footer">
       <footer-comp />
     </div>
+    </main>
+
+    
 </template>
 
 <style scoped>
@@ -131,6 +139,5 @@ input {
 .total p {
   margin: 0 0 2vw 0;
 }
-
 
 </style>
