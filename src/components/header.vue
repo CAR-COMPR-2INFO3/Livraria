@@ -6,7 +6,7 @@
 
     <nav>
         <div class="logo">
-            <a href="App.vue">IFbooks <span class="linha">|</span> <span class="texto">Apreço a leitura</span></a>
+            <a href="App.vue"><p>IFbooks  <span class="linha"></span></p><p> <span class="texto">Apreço a <br>leitura</span></p></a>
         </div>
 
         <div class="barra">
@@ -114,7 +114,7 @@ table {
 /* GERAL */
 
 header nav {
-    margin: 2%;
+    margin: 1%;
     display: flex;
     justify-content: space-between;
 }
@@ -122,29 +122,52 @@ header nav {
 /* LOGO */
 
 header nav div.logo {
-    font-size: 2rem;
+    font-size: 1.2rem;
+    padding: 0 0 0 5vw;
+}
+
+header nav div.logo a{
+    display: flex;
 }
 
 header nav div.logo .linha{
     color: #27AE60;
-    font-size: 2.5rem;
+    height: 100px;
+    border-right: 2px solid;
+
 }
+
 
 header nav div.logo .texto{
     color: #27AE60;
-    font-size: 20px;
+    font-size: 1rem;
+    
 }
 
 
 
 /* BARRA */
 
+header nav div.barra form p{
+    background-color: #F1F1F1;
+    justify-content: space-between;
+    padding: 7px 1vw 0.5vw 1vw;
+    margin: 10px 0 0 0;
+}
+
 header nav div.barra form p input{
     border: none;
+    background: #F1F1F1;
+    color: #B8B8B8;
+    font-size: 1rem;
+    padding: 0 9vw 0 0;
+    outline: none;
 }
 
 header nav div.barra form p button{
     border: none;
+    background-color: F1F1F1;
+
 }
 
 /* PAGINAS */
