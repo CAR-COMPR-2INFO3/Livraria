@@ -1,7 +1,6 @@
 <script setup>
+import footerComp from './componentes/footer.vue'
 import { ref, computed } from 'vue'
-
-import pé from './componentes/footer.vue'
 
 const Livros = ref([
   { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 0 },
@@ -45,21 +44,93 @@ const totalCompras = computed(() => {
 </script>
 
 <template>
-  <div class="carrinho" @click="Button">
-    <div class="adicionar">
-    <h1>Carrinho</h1>
-    <ul>
-      <li><p>Título</p></li>
-      <li><p>Quantidade</p></li>
-      <li><p>Subtotal</p></li>
-    </ul>
+  <carrinho/>
+    <div class="carrinho">
+      <div class="adicionar">
+        <h1>Carrinho</h1>
+        <ul>
+          <li>
+            <p>Título</p>
+          </li>
+          <li>
+            <p>Quantidade</p>
+          </li>
+          <li>
+            <p>Subtotal</p>
+          </li>
+        </ul>
+      </div>
+      <button class="voltar">Voltar para loja</button>
+      <p><input type="text" placeholder="Código do Cupom"><button class="verde">Inserir Cupom</button></p>
+      <div class="total">
+        <h2>Total da Compra</h2>
+        <ul>
+          <li>
+            <p>Produtos:<span> R${{ totalCompras.produtos }}</span></p>
+            <hr>
+          </li>
+          <li>
+            <p>Frete: <span> {{ totalCompras.frete }}</span></p>
+            <hr>
+          </li>
+          <li>
+            <p>Total: <span> R${{ totalCompras.total }}  </span></p>
+          </li>
+        </ul>
+        <button class="verde">Ir para o pagamento</button>
+      </div>
     </div>
-    <button class="voltar">Voltar para loja</button>
-     <p><input type="text"> <button>Inserir Cupom</button></p>
-  </div>
-  <div class="footer">
-    <pé />
-  </div>
+    <div class="footer">
+      <footer-comp />
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.carrinho {
+  padding: 4vw;
+}
+
+.adicionar h1 {
+  color: #27AE60;
+  font-size: 2vw;
+  font-weight: bold;
+  margin: 0 0 3vw 0;
+}
+
+.adicionar ul {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: #27AE60 solid 2px;
+  padding: 0 0 1vw 0;
+}
+input {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  margin: 0 0.6vw 0 0;
+}
+.voltar {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  background-color: white;
+  border-color: gray;
+  margin: 0 0 4vw 0;
+}
+.total {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 60vw;
+  padding: 2vw;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+.total h2 {
+  margin: 0 0 2vw 0;
+  font-size: 1.3vw;
+  font-weight: bold;
+}
+.total p {
+  margin: 0 0 2vw 0;
+}
+
+
+</style>
