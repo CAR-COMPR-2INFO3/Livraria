@@ -6,16 +6,14 @@
 
     <nav>
         <div class="logo">
-            <a href="App.vue"><p>IFbooks  <span class="linha"></span></p><p> <span class="texto">Apreço a <br>leitura</span></p></a>
+            <a href="App.vue"><img src="/public/img/logo.png" alt="logo"></a>   
         </div>
 
         <div class="barra">
             <form action="#" method="get">
                 <p>
                     <input type="text" id="barra-pesquisa" placeholder="Pesquisar">
-                    <button type="submit">
-                        <img src="/public/img/Icon.png" alt="pesquisa"></img>
-                    </button>
+                    <span class="mdi mdi-magnify"></span>
                 </p>
             </form>
         </div>
@@ -36,17 +34,29 @@
             </ul>
         </div>
         <div class="icones">
-            <ul>
-                <li>
-                    <p><i class="fi fi-sr-shopping-cart"></i> | </p>
-                </li>
-                <li>
-                    <p><i class="fi fi-sr-heart"></i> | </p>
-                </li>
-                <li>
-                    <p><i class="fi fi-sr-user"></i></p>
-                </li>
-            </ul>
+            <nav>
+                <ul>
+                    <li>
+                        <p>
+                            <a href="#"><span class="fi fi-sr-shopping-cart"></span></a> 
+                        </p>
+                    </li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li>
+                        <p>
+                            <a href="#"><span class="fi fi-sr-heart"></span></a> 
+                        </p>
+                    </li>
+                    <li>
+                        <p>|</p>
+                    </li>
+                    <li>
+                        <p><a href="#"><span class="fi fi-sr-user"></span></a></p>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </nav>
     <hr />
@@ -114,36 +124,18 @@ table {
 /* GERAL */
 
 header nav {
-    margin: 1%;
+    margin: 1.5%;
+    padding: 0 3vw 0 3vw;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 /* LOGO */
 
-header nav div.logo {
-    font-size: 1.2rem;
-    padding: 0 0 0 5vw;
+header nav div.logo{
+    margin: 7px 0 0 0;
 }
-
-header nav div.logo a{
-    display: flex;
-}
-
-header nav div.logo .linha{
-    color: #27AE60;
-    height: 100px;
-    border-right: 2px solid;
-
-}
-
-
-header nav div.logo .texto{
-    color: #27AE60;
-    font-size: 1rem;
-    
-}
-
 
 
 /* BARRA */
@@ -152,7 +144,7 @@ header nav div.barra form p{
     background-color: #F1F1F1;
     justify-content: space-between;
     padding: 7px 1vw 0.5vw 1vw;
-    margin: 10px 0 0 0;
+    margin: 0 0 0 0;
 }
 
 header nav div.barra form p input{
@@ -160,37 +152,41 @@ header nav div.barra form p input{
     background: #F1F1F1;
     color: #B8B8B8;
     font-size: 1rem;
-    padding: 0 9vw 0 0;
+    padding: 0 1vw 0 0;
     outline: none;
-}
-
-header nav div.barra form p button{
-    border: none;
-    background-color: F1F1F1;
-
 }
 
 /* PAGINAS */
 
 header nav div.paginas ul{
-    display: flex;
+   display: flex;
 }
 
-header nav div.paginas ul li{
-    padding: 0 3vw 0 0;
+header nav div.paginas ul li a{
+    color: #7B7881;
+    padding: 0 4vw 0 0;
 }
 
 
 /* ICONES */
 
-header nav div.icones ul{
+header nav div.icones nav ul{
     display: flex;
+
 }
 
+header nav div.icones nav ul li{
+    padding: 0 20px 0 0;
+    color: green;
+}
 
+header nav div.icones nav ul li p a{
+    color: green;
+}
 
-
-
+hr{
+    color: #27AE60;
+}
 
 
 
