@@ -1,8 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-import footerComp from './componentes/footer.vue'
-import cabecalho from "./components/header.vue";
+import footerComp from './components/footer.vue'
 
 const Livros = ref([
   { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50 },
