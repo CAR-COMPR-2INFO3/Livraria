@@ -1,4 +1,10 @@
 <script setup>
+import { ref, computed } from 'vue';
+
+const carrinhoAparecer = ref(false);
+const botao = computed(() => 
+  carrinhoAparecer.value ? 'Esconder' : 'Mostrar',
+);
 
 </script>
 
@@ -6,7 +12,7 @@
 
     <nav>
         <div class="logo">
-            <a href="App.vue"><img src="/public/img/logo.png" alt="logo"></a>   
+            <a href="App.vue"><img src="/public/img/logo.png" alt="logo"></a>
         </div>
 
         <div class="barra">
@@ -38,7 +44,9 @@
                 <ul>
                     <li>
                         <p>
-                            <a href="#"><span class="fi fi-sr-shopping-cart"></span></a> 
+                            <button @click="carrinhoAparecer=!carrinhoAparecer">{{botao}}
+                                <span class="fi fi-sr-shopping-cart"></span>
+                            </button>
                         </p>
                     </li>
                     <li>
@@ -46,7 +54,7 @@
                     </li>
                     <li>
                         <p>
-                            <a href="#"><span class="fi fi-sr-heart"></span></a> 
+                            <a href="#"><span class="fi fi-sr-heart"></span></a>
                         </p>
                     </li>
                     <li>
@@ -65,7 +73,6 @@
 </template>
 
 <style scoped>
-
 /*    CSS RESET      */
 
 
@@ -74,48 +81,135 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+    display: block;
 }
+
 body {
-	line-height: 1;
+    line-height: 1;
 }
-ol, ul {
-	list-style: none;
+
+ol,
+ul {
+    list-style: none;
 }
-blockquote, q {
-	quotes: none;
+
+blockquote,
+q {
+    quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: '';
+    content: none;
 }
+
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 
@@ -133,21 +227,21 @@ header nav {
 
 /* LOGO */
 
-header nav div.logo{
+header nav div.logo {
     margin: 7px 0 0 0;
 }
 
 
 /* BARRA */
 
-header nav div.barra form p{
+header nav div.barra form p {
     background-color: #F1F1F1;
     justify-content: space-between;
     padding: 7px 1vw 0.5vw 1vw;
     margin: 0 0 0 0;
 }
 
-header nav div.barra form p input{
+header nav div.barra form p input {
     border: none;
     background: #F1F1F1;
     color: #B8B8B8;
@@ -158,11 +252,11 @@ header nav div.barra form p input{
 
 /* PAGINAS */
 
-header nav div.paginas ul{
-   display: flex;
+header nav div.paginas ul {
+    display: flex;
 }
 
-header nav div.paginas ul li a{
+header nav div.paginas ul li a {
     color: #7B7881;
     padding: 0 4vw 0 0;
 }
@@ -170,24 +264,21 @@ header nav div.paginas ul li a{
 
 /* ICONES */
 
-header nav div.icones nav ul{
+header nav div.icones nav ul {
     display: flex;
 
 }
 
-header nav div.icones nav ul li{
+header nav div.icones nav ul li {
     padding: 0 20px 0 0;
     color: green;
 }
 
-header nav div.icones nav ul li p a{
+header nav div.icones nav ul li p a {
     color: green;
 }
 
-hr{
+hr {
     color: #27AE60;
 }
-
-
-
 </style>

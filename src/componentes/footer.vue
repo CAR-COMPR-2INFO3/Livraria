@@ -12,7 +12,7 @@
         </ul>
       </div>
       <div class="contato">
-        <p class="c">contato</p>
+        <p class="c">Contato</p>
         <ul class="icone">
           <li><i class="fa-solid fa-phone"></i>
             <p>+55 47 40045263</p>
