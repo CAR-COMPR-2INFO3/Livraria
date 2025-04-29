@@ -57,14 +57,11 @@ background-color: rgb(24, 125, 24);
 transition: 0.5s;
 }
 
-<<<<<<< HEAD
 body {
   font-family:'Inter';
 }
-=======
 @import '@mdi/font/css/materialdesignicons.css';
 @import './base.css';
->>>>>>> 513fb2ec48b0f4a6fd380a46f58fb535d25d56d4
 
 
 a{
