@@ -134,9 +134,7 @@ const totalCompras = computed(() => {
         </div>
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
-
-    </div>
-    <div class="frete">
+      <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
           <hr />
@@ -145,6 +143,9 @@ const totalCompras = computed(() => {
           <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
         </ul>
       </div>
+    </div>
+
+
     <div v-if="carrinhoAparecer">
       <carrinho />
 
@@ -347,8 +348,13 @@ hr {
   padding: 5vw;
 }
 .frete ul {
-
   display: flex;
-
+}
+.frete i {
+  font-size: 2.5vw;
+  margin: 0 5px 0 0;
+}
+.frete li {
+  font-size: 1.5vw;
 }
 </style>
