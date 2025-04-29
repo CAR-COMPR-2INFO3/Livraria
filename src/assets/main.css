@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 /* http://meyerweb.com/eric/tools/css/reset/ */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -42,9 +45,26 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+.carrinho button.verde {
+  background-color: #27AE60;
+  color: white;
+  border: none;
+  border-radius: 0.2vw;
+  padding: 1vw 2vw 1vw 2vw;
+}
+button.verde:hover {
+background-color: rgb(24, 125, 24);
+transition: 0.5s;
+}
 
+<<<<<<< HEAD
+body {
+  font-family:'Inter';
+}
+=======
 @import '@mdi/font/css/materialdesignicons.css';
 @import './base.css';
+>>>>>>> 513fb2ec48b0f4a6fd380a46f58fb535d25d56d4
 
 
 a{
