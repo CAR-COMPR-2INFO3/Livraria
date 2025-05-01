@@ -45,7 +45,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-.carrinho button.verde {
+button.verde {
   background-color: #27AE60;
   color: white;
   border: none;
@@ -55,6 +55,7 @@ table {
 button.verde:hover {
 background-color: rgb(24, 125, 24);
 transition: 0.5s;
+
 }
 
 body {
@@ -68,3 +69,4 @@ a{
     text-decoration: none;
     color: black;
 }
+
