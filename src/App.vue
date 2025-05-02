@@ -4,13 +4,13 @@ import { ref, computed } from 'vue'
 import footerComp from './components/footer.vue'
 
 const Livros = ref([
-  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/nog-ognia.png' },
+  { id: 1, titulo: 'Noc Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/noc-ognia.jpg' },
   { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg' },
   { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg' },
-  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.jpg' },
+  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.png' },
   { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg' },
   { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg' },
-  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia2.jpg' },
+  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg' },
   { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg' }
 
 ]);
@@ -128,7 +128,6 @@ const totalCompras = computed(() => {
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
 
-    </div>
     <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
@@ -144,7 +143,7 @@ const totalCompras = computed(() => {
         <div>
           <div v-for="livro in Livros" :key="livro.id">
             <img :src="livro.img" />
-            <h3>{{ livro.titulo }}</h3>
+            <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
             <button @click="AdicionarCarrinho">
@@ -155,7 +154,7 @@ const totalCompras = computed(() => {
         </div>
       </section>
       
-      </div> 
+    </div> 
       
     <div v-if="carrinhoAparecer">
       <carrinho />
@@ -350,29 +349,38 @@ section.lancamentos h2 {
 section.lancamentos>div {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin: 5vw 0 0 0;
 }
+
 
 
 
 section.lancamentos>div>div {
-  margin: auto;
+  margin: 0 3vw 2vw 0;
+  width: 14.641288433382138vw;
 }
 
 section.lancamentos div h3 {
-  margin: 1vw 0 0 0;
-  font-size: 1vw;
+  margin: 1.5vw 0 1vw 0;
+  font-weight: 450;
+  font-size: 1.5vw;
+  white-space: nowrap;         /* Não permite quebra de linha */
+  overflow: hidden;            /* Esconde o texto que passar da largura */
+  text-overflow: ellipsis;     /* Adiciona "..." no final do texto cortado */
+
 }
 
 section.lancamentos div p.autor{
   margin: 0.5vw 0 0.5vw 0;
   color: #4F4C57;
-  font-size: 15px;
+  font-size: 1.1vw;
 }
 
 section.lancamentos div p.preco{
-  font-size: 18px;
+  font-size: 1.25vw;
   font-weight: 500;
-  margin: 0 0 1.5vw 0;
+  margin: 1vw 0 2vw 0;
 }
 
 section.lancamentos div button{
@@ -380,7 +388,17 @@ section.lancamentos div button{
   color: white;
   display: flex;
   font-size: 1.1vw;
-  padding: 0.7vw 4vw 0.7vw 4vw;
+  padding: 0.7vw 4.7vw 0.7vw 4.7vw;
+  border: none;
+  border-radius: 5px;
+}
+
+section.lancamentos div img{
+  width: 14.641288433382138vw;
+  height: 21.961932650073205vw;
+  object-fit: cover;
+  position: relative;
+  border-radius: 5px;
 }
 
 /*========================= banner =========================*/
