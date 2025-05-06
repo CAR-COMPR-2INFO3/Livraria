@@ -19,11 +19,11 @@ const carrinhoAparecer = ref(false);
 const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
-function AdicionarCarrinho() {
-  Carrinho.value.push(Livros.value[0])
+function AdicionarCarrinho(livro) {
+  Carrinho.value.push(livro);
 }
 function RemoverCarrinho() {
-  Carrinho.value.pop()
+  Carrinho.value.pop();
 }
 
 // Soma automática baseada no conteúdo do carrinho
@@ -137,7 +137,7 @@ const totalCompras = computed(() => {
           <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
         </ul>
       </div>
-      
+
       <section class="lancamentos">
         <h2>Lançamentos</h2>
         <div>
@@ -146,16 +146,16 @@ const totalCompras = computed(() => {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button @click="AdicionarCarrinho">
+            <button @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
           </div>
         </div>
       </section>
-      
-    </div> 
-      
+
+    </div>
+
     <div v-if="carrinhoAparecer">
       <carrinho />
 
@@ -174,6 +174,22 @@ const totalCompras = computed(() => {
             </li>
           </ul>
         </div>
+        <div  class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+          <div>
+          <img :src="adicionado.img" height="150" width="100">
+          </div>
+          <div>
+          <h1> {{ adicionado.titulo }} </h1>
+          <p> {{ adicionado.autor }} </p>
+          <p> {{ adicionado.preco }} </p>
+          <div class="quantidade">
+          </div>
+          </div>
+          <div class="sub">
+
+          </div>
+        </div>
+
         <button class="voltar">Voltar para loja</button>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
@@ -427,5 +443,16 @@ section.lancamentos div img{
 
   display: flex;
 
+}
+.adicionado {
+  display: flex;
+  padding: 2.5vw;
+}
+.adicionado img {
+  margin: 0 1vw 0 0;
+}
+.adicionado h1 {
+  font-size: 1.5vw;
+  font-weight: bold;
 }
 </style>
