@@ -146,7 +146,7 @@ const totalCompras = computed(() => {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button @click="AdicionarCarrinho(livro)">
+            <button class="verde"  @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
@@ -400,8 +400,6 @@ section.lancamentos div p.preco{
 }
 
 section.lancamentos div button{
-  background-color: #27AE60;
-  color: white;
   display: flex;
   font-size: 1.1vw;
   padding: 0.7vw 4.7vw 0.7vw 4.7vw;
@@ -437,16 +435,20 @@ section.lancamentos div img{
 }
 .frete {
   border-top: #27ae60 solid 2px;
+  border-bottom: #27ae60 solid 2px;
   padding: 5vw;
 }
+.frete i {
+  font-size: 2.5vw;
+  margin: 0 1vw 0 0;
+}
 .frete ul {
-
   display: flex;
-
 }
 .adicionado {
   display: flex;
   padding: 2.5vw;
+  border-bottom: #b8b8b8 solid 2px;
 }
 .adicionado img {
   margin: 0 1vw 0 0;
@@ -454,5 +456,8 @@ section.lancamentos div img{
 .adicionado h1 {
   font-size: 1.5vw;
   font-weight: bold;
+}
+.adicionado p {
+  margin: 1vw 0 1vw 0;
 }
 </style>
