@@ -4,35 +4,26 @@ import { ref, computed } from 'vue'
 import footerComp from './components/footer.vue'
 
 const Livros = ref([
-  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.5 },
-  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.9 },
-  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.9 },
-  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.0 },
-  {
-    id: 5,
-    titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado',
-    autor: 'Audrey Wood',
-    preco: 64.9,
-  },
-  {
-    id: 6,
-    titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada',
-    autor: 'Kiyosaki Robert T',
-    preco: 54.69,
-  },
-  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.9 },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.9 },
-])
+  { id: 1, titulo: 'Noc Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/noc-ognia.jpg' },
+  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg' },
+  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg' },
+  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.png' },
+  { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg' },
+  { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg' },
+  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg' },
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg' }
 
-const carrinhoAparecer = ref(false)
-const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'))
+]);
+
+const carrinhoAparecer = ref(false);
+const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
-function AdicionarCarrinho() {
-  Carrinho.value.push(Livros.value[0])
+function AdicionarCarrinho(livro) {
+  Carrinho.value.push(livro);
 }
 function RemoverCarrinho() {
-  Carrinho.value.pop()
+  Carrinho.value.pop();
 }
 
 // Soma automática baseada no conteúdo do carrinho
@@ -46,14 +37,22 @@ const totalCompras = computed(() => {
     frete: 'Grátis',
     total: valorTotal.value,
   }
-})
+});
+let quantidade = ref(0);
+function contadorSom(quantidadeq){
+quantidade.value++;
+}
+function contadorSub(){
+  quantidade.value--
+}
+
 </script>
 
 <template>
   <header>
     <nav>
       <div class="logo">
-        <a href="App.vue"><img src="/public/img/logo.png" alt="logo" /></a>
+        <a href="App.vue"><img src="/img/logo.png" alt="logo"></a>
       </div>
 
       <div class="barra">
@@ -143,9 +142,26 @@ const totalCompras = computed(() => {
           <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
         </ul>
       </div>
+
+      <section class="lancamentos">
+        <h2>Lançamentos</h2>
+        <div>
+          <div v-for="livro in Livros" :key="livro.id">
+            <img :src="livro.img" />
+            <h3 class="title">{{ livro.titulo }} </h3>
+            <p class="autor">{{ livro.autor }}</p>
+            <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
+            <button class="verde"  @click="AdicionarCarrinho(livro)">
+              <span class="fi fi-sr-shopping-cart"></span>
+              <p>Comprar</p>
+            </button>
+          </div>
+        </div>
+      </section>
+
     </div>
 
-
+    </div>
     <div v-if="carrinhoAparecer">
       <carrinho />
 
@@ -164,6 +180,24 @@ const totalCompras = computed(() => {
             </li>
           </ul>
         </div>
+        <div  class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+          <div>
+          <img :src="adicionado.img" height="150" width="100">
+          </div>
+          <div>
+          <h1> {{ adicionado.titulo }} </h1>
+          <p> {{ adicionado.autor }} </p>
+          <p> {{ adicionado.preco }} </p>
+          <div class="quantidade">
+          <button @click="contadorSom">+</button> {{ quantidade }} <button @click="contadorSub">-</button>
+          </div>
+          <div class="sub">
+
+          </div>
+          </div>
+
+        </div>
+
         <button class="voltar">Voltar para loja</button>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
@@ -325,6 +359,70 @@ hr {
 .invisible {
   display: none;
 }
+
+/* LANÇAMENTOS */
+
+section.lancamentos {
+  margin: 8.5vw;
+}
+
+section.lancamentos h2 {
+  font-size: 2.4rem;
+}
+
+section.lancamentos>div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 5vw 0 0 0;
+}
+
+
+
+
+section.lancamentos>div>div {
+  margin: 0 3vw 2vw 0;
+  width: 14.641288433382138vw;
+}
+
+section.lancamentos div h3 {
+  margin: 1.5vw 0 1vw 0;
+  font-weight: 450;
+  font-size: 1.5vw;
+  white-space: nowrap;         /* Não permite quebra de linha */
+  overflow: hidden;            /* Esconde o texto que passar da largura */
+  text-overflow: ellipsis;     /* Adiciona "..." no final do texto cortado */
+
+}
+
+section.lancamentos div p.autor{
+  margin: 0.5vw 0 0.5vw 0;
+  color: #4F4C57;
+  font-size: 1.1vw;
+}
+
+section.lancamentos div p.preco{
+  font-size: 1.25vw;
+  font-weight: 500;
+  margin: 1vw 0 2vw 0;
+}
+
+section.lancamentos div button{
+  display: flex;
+  font-size: 1.1vw;
+  padding: 0.7vw 4.7vw 0.7vw 4.7vw;
+  border: none;
+  border-radius: 5px;
+}
+
+section.lancamentos div img{
+  width: 14.641288433382138vw;
+  height: 21.961932650073205vw;
+  object-fit: cover;
+  position: relative;
+  border-radius: 5px;
+}
+
 /*========================= banner =========================*/
 .banner {
   display: flex;
@@ -345,16 +443,34 @@ hr {
 }
 .frete {
   border-top: #27ae60 solid 2px;
+  border-bottom: #27ae60 solid 2px;
   padding: 5vw;
-}
-.frete ul {
-  display: flex;
 }
 .frete i {
   font-size: 2.5vw;
   margin: 0 5px 0 0;
 }
+.frete ul {
+  display: flex;
+
 .frete li {
   font-size: 1.5vw;
 }
+/*========================= Carrinho2 =========================*/
+.adicionado {
+  display: flex;
+  padding: 2.5vw;
+  border-bottom: #b8b8b8 solid 2px;
+}
+.adicionado img {
+  margin: 0 1vw 0 0;
+}
+.adicionado h1 {
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+.adicionado p {
+  margin: 1vw 0 1vw 0;
+}
+
 </style>
