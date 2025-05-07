@@ -133,8 +133,7 @@ function contadorSub(){
         </div>
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
-
-    <div class="frete">
+      <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
           <hr />
@@ -162,6 +161,7 @@ function contadorSub(){
 
     </div>
 
+    </div>
     <div v-if="carrinhoAparecer">
       <carrinho />
 
@@ -448,10 +448,13 @@ section.lancamentos div img{
 }
 .frete i {
   font-size: 2.5vw;
-  margin: 0 1vw 0 0;
+  margin: 0 5px 0 0;
 }
 .frete ul {
   display: flex;
+
+.frete li {
+  font-size: 1.5vw;
 }
 /*========================= Carrinho2 =========================*/
 .adicionado {
