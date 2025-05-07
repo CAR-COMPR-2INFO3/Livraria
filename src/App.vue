@@ -4,14 +4,14 @@ import { ref, computed } from 'vue'
 import footerComp from './components/footer.vue'
 
 const Livros = ref([
-  { id: 1, titulo: 'Noc Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/noc-ognia.jpg' },
-  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg' },
-  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg' },
-  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.png' },
-  { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg' },
-  { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg' },
-  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg' },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg' }
+  { id: 1, titulo: 'Noc Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/noc-ognia.jpg', quantidade: 1 },
+  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg', quantidade: 1 },
+  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg', quantidade: 1 },
+  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.png', quantidade: 1 },
+  { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg', quantidade: 1 },
+  { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg', quantidade: 1 },
+  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg', quantidade: 1 },
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 }
 
 ]);
 
@@ -28,7 +28,7 @@ function RemoverCarrinho() {
 
 // Soma automática baseada no conteúdo do carrinho
 const valorTotal = computed(() => {
-  return Carrinho.value.reduce((total, livro) => total + livro.preco, 0)
+  return Carrinho.value.reduce((total, livro) => total + (livro.preco * livro.quantidade), 0)
 })
 
 const totalCompras = computed(() => {
@@ -38,12 +38,14 @@ const totalCompras = computed(() => {
     total: valorTotal.value,
   }
 });
-let quantidade = ref(0);
-function contadorSom(quantidadeq){
-quantidade.value++;
+
+function contadorSom(adicionado) {
+  adicionado.quantidade++;
 }
-function contadorSub(){
-  quantidade.value--
+function contadorSub(adicionado) {
+  if (adicionado.quantidade > 1) {
+    adicionado.quantidade--;
+  }
 }
 
 </script>
@@ -134,7 +136,7 @@ function contadorSub(){
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
 
-    <div class="frete">
+      <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
           <hr />
@@ -152,7 +154,7 @@ function contadorSub(){
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button class="verde"  @click="AdicionarCarrinho(livro)">
+            <button class="verde" @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
@@ -180,20 +182,21 @@ function contadorSub(){
             </li>
           </ul>
         </div>
-        <div  class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+        <div class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
           <div>
-          <img :src="adicionado.img" height="150" width="100">
+            <img :src="adicionado.img" height="150" width="100">
           </div>
           <div>
-          <h1> {{ adicionado.titulo }} </h1>
-          <p> {{ adicionado.autor }} </p>
-          <p> {{ adicionado.preco }} </p>
-          <div class="quantidade">
-          <button @click="contadorSom">+</button> {{ quantidade }} <button @click="contadorSub">-</button>
-          </div>
-          <div class="sub">
-
-          </div>
+            <h1> {{ adicionado.titulo }} </h1>
+            <p> {{ adicionado.autor }} </p>
+            <p> {{ adicionado.preco }} </p>
+            <div class="quantidade">
+              <button @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button
+                @click="contadorSub(adicionado)">-</button>
+            </div>
+            <div class="removerCarrinho">
+              <button @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+            </div>
           </div>
 
         </div>
@@ -209,7 +212,7 @@ function contadorSub(){
           <ul>
             <li>
               <p>
-                Produtos:<span> R${{ totalCompras.produtos }}</span>
+                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</span>
               </p>
               <hr />
             </li>
@@ -221,7 +224,7 @@ function contadorSub(){
             </li>
             <li>
               <p>
-                Total: <span> R${{ totalCompras.total }} </span>
+                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} </span>
               </p>
             </li>
           </ul>
@@ -389,25 +392,28 @@ section.lancamentos div h3 {
   margin: 1.5vw 0 1vw 0;
   font-weight: 450;
   font-size: 1.5vw;
-  white-space: nowrap;         /* Não permite quebra de linha */
-  overflow: hidden;            /* Esconde o texto que passar da largura */
-  text-overflow: ellipsis;     /* Adiciona "..." no final do texto cortado */
+  white-space: nowrap;
+  /* Não permite quebra de linha */
+  overflow: hidden;
+  /* Esconde o texto que passar da largura */
+  text-overflow: ellipsis;
+  /* Adiciona "..." no final do texto cortado */
 
 }
 
-section.lancamentos div p.autor{
+section.lancamentos div p.autor {
   margin: 0.5vw 0 0.5vw 0;
   color: #4F4C57;
   font-size: 1.1vw;
 }
 
-section.lancamentos div p.preco{
+section.lancamentos div p.preco {
   font-size: 1.25vw;
   font-weight: 500;
   margin: 1vw 0 2vw 0;
 }
 
-section.lancamentos div button{
+section.lancamentos div button {
   display: flex;
   font-size: 1.1vw;
   padding: 0.7vw 4.7vw 0.7vw 4.7vw;
@@ -415,7 +421,7 @@ section.lancamentos div button{
   border-radius: 5px;
 }
 
-section.lancamentos div img{
+section.lancamentos div img {
   width: 14.641288433382138vw;
   height: 21.961932650073205vw;
   object-fit: cover;
@@ -428,46 +434,55 @@ section.lancamentos div img{
   display: flex;
   justify-content: space-between;
 }
+
 .eric {
   padding: 8.5vw;
 }
+
 .eric h1 {
   font-size: 3.5vw;
   font-weight: bold;
   margin: 0 0 2vw 0;
 }
+
 .eric p {
   padding: 0 23vw 0 0;
   margin: 0 0 2vw 0;
   font-weight: 350;
 }
+
 .frete {
   border-top: #27ae60 solid 2px;
   border-bottom: #27ae60 solid 2px;
   padding: 5vw;
 }
+
 .frete i {
   font-size: 2.5vw;
   margin: 0 1vw 0 0;
 }
+
 .frete ul {
   display: flex;
 }
+
 /*========================= Carrinho2 =========================*/
 .adicionado {
   display: flex;
   padding: 2.5vw;
   border-bottom: #b8b8b8 solid 2px;
 }
+
 .adicionado img {
   margin: 0 1vw 0 0;
 }
+
 .adicionado h1 {
   font-size: 1.5vw;
   font-weight: bold;
 }
+
 .adicionado p {
   margin: 1vw 0 1vw 0;
 }
-
 </style>
