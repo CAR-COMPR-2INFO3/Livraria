@@ -38,7 +38,13 @@ const totalCompras = computed(() => {
     total: valorTotal.value,
   }
 });
-
+let quantidade = ref(0);
+function contadorSom(quantidadeq){
+quantidade.value++;
+}
+function contadorSub(){
+  quantidade.value--
+}
 
 </script>
 
@@ -183,11 +189,13 @@ const totalCompras = computed(() => {
           <p> {{ adicionado.autor }} </p>
           <p> {{ adicionado.preco }} </p>
           <div class="quantidade">
-          </div>
+          <button @click="contadorSom">+</button> {{ quantidade }} <button @click="contadorSub">-</button>
           </div>
           <div class="sub">
 
           </div>
+          </div>
+
         </div>
 
         <button class="voltar">Voltar para loja</button>
@@ -445,6 +453,7 @@ section.lancamentos div img{
 .frete ul {
   display: flex;
 }
+/*========================= Carrinho2 =========================*/
 .adicionado {
   display: flex;
   padding: 2.5vw;
@@ -460,4 +469,5 @@ section.lancamentos div img{
 .adicionado p {
   margin: 1vw 0 1vw 0;
 }
+
 </style>
