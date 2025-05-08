@@ -515,12 +515,14 @@ table tr{
 
 table tr th {
   padding: 0 2vw 1vw 2vw;
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
 }
 
 table tr td {
   padding: 1vw 2vw 1vw 2vw;
-  text-align: left;
+  text-align: center;
+  vertical-align: middle;
 }
 
 table tr td.titulo-adicionado{
