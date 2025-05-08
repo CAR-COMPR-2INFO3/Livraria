@@ -154,7 +154,7 @@ function contadorSub(adicionado) {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button class="verde"  @click="AdicionarCarrinho(livro)">
+            <button class="verde" @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
@@ -169,36 +169,41 @@ function contadorSub(adicionado) {
 
       <div class="carrinho">
         <div class="adicionar">
-          <h1>Carrinho</h1>
-          <ul>
-            <li>
-              <p>Título</p>
-            </li>
-            <li>
-              <p>Quantidade</p>
-            </li>
-            <li>
-              <p>Subtotal</p>
-            </li>
-          </ul>
-        </div>
-        <div class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
-          <div>
-            <img :src="adicionado.img" height="150" width="100">
-          </div>
-          <div>
-            <h1> {{ adicionado.titulo }} </h1>
-            <p> {{ adicionado.autor }} </p>
-            <p> {{ adicionado.preco }} </p>
-            <div class="quantidade">
-              <button @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button
-                @click="contadorSub(adicionado)">-</button>
-            </div>
-            <div class="removerCarrinho">
-              <button @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
-            </div>
-          </div>
-
+          <table>
+            <tr>
+              <th>
+                Título
+              </th>
+              <th>
+                Quantidade
+              </th>
+              <th>
+                Subtotal
+              </th>
+            </tr>
+            <tr class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+              <td class="titulo-adicionado">
+                <div>
+                  <img :src="adicionado.img" height="150" width="100">
+                </div>
+                <div>
+                  <h1> {{ adicionado.titulo }} </h1>
+                  <p> {{ adicionado.autor }} </p>
+                  <p> {{ adicionado.preco }} </p>
+                  <div class="removerCarrinho">
+                    <button @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="quantidade">
+                  <button @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button
+                    @click="contadorSub(adicionado)">-</button>
+                </div>
+              </td>
+              <td>{{ adicionado.preco }}</td>
+            </tr>
+          </table>
         </div>
 
         <button class="voltar">Voltar para loja</button>
@@ -212,7 +217,9 @@ function contadorSub(adicionado) {
           <ul>
             <li>
               <p>
-                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</span>
+                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', {
+                  style: 'currency', currency: 'BRL'
+                }) }}</span>
               </p>
               <hr />
             </li>
@@ -224,7 +231,8 @@ function contadorSub(adicionado) {
             </li>
             <li>
               <p>
-                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} </span>
+                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                </span>
               </p>
             </li>
           </ul>
@@ -456,7 +464,8 @@ section.lancamentos div img {
 
 .frete ul {
   display: flex;
-  }
+}
+
 .frete i {
   font-size: 2.5vw;
   margin: 0 5px 0 0;
@@ -466,7 +475,7 @@ section.lancamentos div img {
   font-size: 1.3vw;
 }
 
-.frete ul hr{
+.frete ul hr {
   border-top: #27ae60 solid 2vw;
 }
 
@@ -474,7 +483,8 @@ section.lancamentos div img {
 
 
 /*========================= Carrinho2 =========================*/
-.adicionado {
+
+/* .adicionado {
   display: flex;
   padding: 2.5vw;
   border-bottom: #b8b8b8 solid 2px;
@@ -491,5 +501,44 @@ section.lancamentos div img {
 
 .adicionado p {
   margin: 1vw 0 1vw 0;
+} */
+
+table {
+  border-collapse: collapse;
 }
+
+table tr{
+  border-bottom: #b8b8b8 solid 2px;
+}
+
+table tr>th {
+  padding: 0 2vw 1vw 2vw;
+
+}
+
+table tr td {
+  padding: 1vw 2vw 1vw 2vw;
+}
+
+table tr td.titulo-adicionado{
+  display: flex;
+}
+
+table tr td.titulo-adicionado p{
+  margin: 1vw 0 1vw 0;
+}
+
+table tr td.titulo-adicionado h1{
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+table tr td.titulo-adicionado img{
+  margin: 0 1vw 0 0;
+  width: 7.320644217vw;
+  height: 10.980966325vw;
+}
+
+
+
 </style>
