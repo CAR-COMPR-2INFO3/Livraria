@@ -505,19 +505,22 @@ section.lancamentos div img {
 
 table {
   border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
 }
 
 table tr{
   border-bottom: #b8b8b8 solid 2px;
 }
 
-table tr>th {
+table tr th {
   padding: 0 2vw 1vw 2vw;
-
+  text-align: left;
 }
 
 table tr td {
   padding: 1vw 2vw 1vw 2vw;
+  text-align: left;
 }
 
 table tr td.titulo-adicionado{
