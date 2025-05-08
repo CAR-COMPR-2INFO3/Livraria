@@ -164,9 +164,6 @@ function contadorSub(adicionado) {
 
     </div>
 
-
-    </div>
-
     <div v-if="carrinhoAparecer">
       <carrinho />
 
