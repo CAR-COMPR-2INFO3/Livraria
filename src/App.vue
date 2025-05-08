@@ -19,11 +19,11 @@ const carrinhoAparecer = ref(false);
 const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
-function AdicionarCarrinho() {
-  Carrinho.value.push(Livros.value[0])
+function AdicionarCarrinho(livro) {
+  Carrinho.value.push(livro);
 }
 function RemoverCarrinho() {
-  Carrinho.value.pop()
+  Carrinho.value.pop();
 }
 
 // Soma automática baseada no conteúdo do carrinho
@@ -38,7 +38,13 @@ const totalCompras = computed(() => {
     total: valorTotal.value,
   }
 });
-
+let quantidade = ref(0);
+function contadorSom(quantidadeq){
+quantidade.value++;
+}
+function contadorSub(){
+  quantidade.value--
+}
 
 </script>
 
@@ -146,13 +152,17 @@ const totalCompras = computed(() => {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button class="verde" @click="AdicionarCarrinho">
+            <button class="verde"  @click="AdicionarCarrinho(livro)">
+
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
           </div>
         </div>
       </section>
+
+    </div>
+
 
     </div>
 
@@ -174,6 +184,24 @@ const totalCompras = computed(() => {
             </li>
           </ul>
         </div>
+        <div  class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+          <div>
+          <img :src="adicionado.img" height="150" width="100">
+          </div>
+          <div>
+          <h1> {{ adicionado.titulo }} </h1>
+          <p> {{ adicionado.autor }} </p>
+          <p> {{ adicionado.preco }} </p>
+          <div class="quantidade">
+          <button @click="contadorSom">+</button> {{ quantidade }} <button @click="contadorSub">-</button>
+          </div>
+          <div class="sub">
+
+          </div>
+          </div>
+
+        </div>
+
         <button class="voltar">Voltar para loja</button>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
@@ -383,6 +411,7 @@ section.lancamentos div p.preco {
   margin: 1vw 0 2vw 0;
 }
 
+
 section.lancamentos div button {
   display: flex;
   font-size: 1.1vw;
@@ -423,8 +452,12 @@ section.lancamentos div img {
 
 .frete {
   border-top: #27ae60 solid 2px;
-  border-bottom: #27ae60 solid 2px;;
+  border-bottom: #27ae60 solid 2px;
   padding: 5vw;
+}
+.frete i {
+  font-size: 2.5vw;
+  margin: 0 5px 0 0;
 }
 
 .frete ul li {
@@ -441,8 +474,26 @@ section.lancamentos div img {
 }
 
 .frete ul {
-
   display: flex;
 
+.frete li {
+  font-size: 1.5vw;
 }
+/*========================= Carrinho2 =========================*/
+.adicionado {
+  display: flex;
+  padding: 2.5vw;
+  border-bottom: #b8b8b8 solid 2px;
+}
+.adicionado img {
+  margin: 0 1vw 0 0;
+}
+.adicionado h1 {
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+.adicionado p {
+  margin: 1vw 0 1vw 0;
+}
+
 </style>
