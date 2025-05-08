@@ -133,6 +133,7 @@ function contadorSub(){
         </div>
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
+
       <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
@@ -152,6 +153,7 @@ function contadorSub(){
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
             <button class="verde"  @click="AdicionarCarrinho(livro)">
+
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
@@ -161,7 +163,9 @@ function contadorSub(){
 
     </div>
 
+
     </div>
+
     <div v-if="carrinhoAparecer">
       <carrinho />
 
@@ -360,7 +364,7 @@ hr {
   display: none;
 }
 
-/* LANÇAMENTOS */
+/* --------------- LANÇAMENTOS ---------------- */
 
 section.lancamentos {
   margin: 8.5vw;
@@ -389,25 +393,26 @@ section.lancamentos div h3 {
   margin: 1.5vw 0 1vw 0;
   font-weight: 450;
   font-size: 1.5vw;
-  white-space: nowrap;         /* Não permite quebra de linha */
-  overflow: hidden;            /* Esconde o texto que passar da largura */
-  text-overflow: ellipsis;     /* Adiciona "..." no final do texto cortado */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
 }
 
-section.lancamentos div p.autor{
+section.lancamentos div p.autor {
   margin: 0.5vw 0 0.5vw 0;
   color: #4F4C57;
   font-size: 1.1vw;
 }
 
-section.lancamentos div p.preco{
+section.lancamentos div p.preco {
   font-size: 1.25vw;
   font-weight: 500;
   margin: 1vw 0 2vw 0;
 }
 
-section.lancamentos div button{
+
+section.lancamentos div button {
   display: flex;
   font-size: 1.1vw;
   padding: 0.7vw 4.7vw 0.7vw 4.7vw;
@@ -415,7 +420,7 @@ section.lancamentos div button{
   border-radius: 5px;
 }
 
-section.lancamentos div img{
+section.lancamentos div img {
   width: 14.641288433382138vw;
   height: 21.961932650073205vw;
   object-fit: cover;
@@ -428,19 +433,23 @@ section.lancamentos div img{
   display: flex;
   justify-content: space-between;
 }
+
 .eric {
   padding: 8.5vw;
 }
+
 .eric h1 {
   font-size: 3.5vw;
   font-weight: bold;
   margin: 0 0 2vw 0;
 }
+
 .eric p {
   padding: 0 23vw 0 0;
   margin: 0 0 2vw 0;
   font-weight: 350;
 }
+
 .frete {
   border-top: #27ae60 solid 2px;
   border-bottom: #27ae60 solid 2px;
@@ -450,6 +459,20 @@ section.lancamentos div img{
   font-size: 2.5vw;
   margin: 0 5px 0 0;
 }
+
+.frete ul li {
+  font-size: 1.3vw;
+}
+
+.frete ul li i {
+  font-size: 1.3vw;
+  margin: 0 2vw 0 0;
+}
+
+.frete ul hr{
+  border-top: #27ae60 solid 2vw;
+}
+
 .frete ul {
   display: flex;
 
