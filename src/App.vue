@@ -41,10 +41,12 @@ const totalCompras = computed(() => {
 
 function contadorSom(adicionado) {
   adicionado.quantidade++;
+  adicionado.preco + adicionado.preco;
 }
 function contadorSub(adicionado) {
   if (adicionado.quantidade > 1) {
     adicionado.quantidade--;
+    adicionado.preco - adicionado.preco;
   }
 }
 
@@ -170,17 +172,9 @@ function contadorSub(adicionado) {
       <div class="carrinho">
         <div class="adicionar">
           <h1>Carrinho</h1>
-          <ul>
-            <li>
-              <p>Título</p>
-            </li>
-            <li>
-              <p>Quantidade</p>
-            </li>
-            <li>
-              <p>Subtotal</p>
-            </li>
-          </ul>
+
+              <p>Itens</p>
+
         </div>
         <div class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
           <div>
@@ -191,17 +185,17 @@ function contadorSub(adicionado) {
             <p> {{ adicionado.autor }} </p>
             <p> {{ adicionado.preco }} </p>
             <div class="quantidade">
-              <button @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button
-                @click="contadorSub(adicionado)">-</button>
+              <button class="ad" @click="contadorSom(adicionado)"><i class="fa-solid fa-plus"></i></button> <span> {{ adicionado.quantidade }} </span> <button class="ad"
+                @click="contadorSub(adicionado)"><i class="fa-solid fa-minus"></i></button>
             </div>
             <div class="removerCarrinho">
-              <button @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+              <button class="lixo" @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
             </div>
           </div>
 
         </div>
 
-        <button class="voltar">Voltar para loja</button>
+        <a href="App.vue"><button class="voltar">Voltar para loja</button></a>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
             Inserir Cupom
@@ -250,9 +244,7 @@ function contadorSub(adicionado) {
   margin: 0 0 3vw 0;
 }
 
-.adicionar ul {
-  display: flex;
-  justify-content: space-between;
+.adicionar p {
   border-bottom: #27ae60 solid 2px;
   padding: 0 0 1vw 0;
 }
@@ -491,5 +483,20 @@ section.lancamentos div img {
 
 .adicionado p {
   margin: 1vw 0 1vw 0;
+}
+.ad{
+  color: white;
+  border: none;
+  background-color: #27ae60;
+  border-radius: 3.5px;
+  margin: 0 0 0.7vw 0;
+  font-size: 1vw;
+}
+.lixo {
+  background-color: rgb(229, 75, 75);
+  color: white;
+  border: none;
+  border-radius: 3.5px;
+  font-size: 1vw;
 }
 </style>
