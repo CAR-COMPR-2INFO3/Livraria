@@ -154,13 +154,16 @@ function contadorSub(adicionado) {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button class="verde" @click="AdicionarCarrinho(livro)">
+            <button class="verde"  @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
           </div>
         </div>
       </section>
+
+    </div>
+
 
     </div>
 
@@ -363,7 +366,7 @@ hr {
   display: none;
 }
 
-/* LANÇAMENTOS */
+/* --------------- LANÇAMENTOS ---------------- */
 
 section.lancamentos {
   margin: 8.5vw;
@@ -393,11 +396,8 @@ section.lancamentos div h3 {
   font-weight: 450;
   font-size: 1.5vw;
   white-space: nowrap;
-  /* Não permite quebra de linha */
   overflow: hidden;
-  /* Esconde o texto que passar da largura */
   text-overflow: ellipsis;
-  /* Adiciona "..." no final do texto cortado */
 
 }
 
@@ -457,14 +457,24 @@ section.lancamentos div img {
   padding: 5vw;
 }
 
-.frete i {
-  font-size: 2.5vw;
-  margin: 0 1vw 0 0;
-}
-
 .frete ul {
   display: flex;
+  }
+.frete i {
+  font-size: 2.5vw;
+  margin: 0 5px 0 0;
 }
+
+.frete ul li {
+  font-size: 1.3vw;
+}
+
+.frete ul hr{
+  border-top: #27ae60 solid 2vw;
+}
+
+
+
 
 /*========================= Carrinho2 =========================*/
 .adicionado {
