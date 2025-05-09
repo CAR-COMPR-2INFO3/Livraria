@@ -53,8 +53,9 @@ button.verde {
   padding: 1vw 2vw 1vw 2vw;
 }
 button.verde:hover {
-background-color: rgb(24, 125, 24);
+background-color: rgb(28, 147, 28);
 transition: 0.5s;
+transform: scale(1.05);
 
 }
 
