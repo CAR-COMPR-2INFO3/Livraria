@@ -20,7 +20,12 @@ const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
 function AdicionarCarrinho(livro) {
-  Carrinho.value.push(livro);
+  if(!Carrinho.value.find(l => l.id === livro.id)){
+    Carrinho.value.push(livro);
+  }
+  else{
+    livro.quantidade++;
+  }
 }
 function RemoverCarrinho() {
   Carrinho.value.pop();
@@ -138,11 +143,13 @@ function contadorSub(adicionado) {
 
       <div class="frete">
         <ul>
-          <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
+          <li>
+            <i class="fa-solid fa-truck"></i><p>Frete grátis para SC</p>
+          </li>
           <hr />
-          <li><i class="fa-solid fa-star"></i>Livros recomendados</li>
+          <li><i class="fa-solid fa-star"></i><p>Livros recomendados</p></li>
           <hr />
-          <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
+          <li><i class="fa-solid fa-book"></i><p>Mais vendidos</p></li>
         </ul>
       </div>
 
@@ -186,27 +193,31 @@ function contadorSub(adicionado) {
                 <div>
                   <img :src="adicionado.img" height="150" width="100">
                 </div>
-                <div>
+                <div class="titulo-texto">
                   <h1> {{ adicionado.titulo }} </h1>
-                  <p> {{ adicionado.autor }} </p>
-                  <p> {{ adicionado.preco }} </p>
+                  <h2> {{ adicionado.autor }} </h2>
+                  <p> {{ adicionado.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) }} </p>
                   <div class="removerCarrinho">
-                    <button @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+                    <button class="lixo" @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
                   </div>
                 </div>
               </td>
               <td>
                 <div class="quantidade">
-                  <button @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button
+                  <button class="ad" @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button class="ad"
                     @click="contadorSub(adicionado)">-</button>
                 </div>
               </td>
-              <td>{{ adicionado.preco }}</td>
+              <td>{{ (adicionado.quantidade * adicionado.preco).toLocaleString('pt-BR', {
+                  style: 'currency', currency: 'BRL'
+                }) }}</td>
             </tr>
           </table>
         </div>
 
-        <button class="voltar">Voltar para loja</button>
+        <a href="App.vue">
+          <button class="voltar">Voltar para loja</button>
+        </a>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
             Inserir Cupom
@@ -464,15 +475,25 @@ section.lancamentos div img {
 
 .frete ul {
   display: flex;
+  justify-content: space-between;
+  margin: 0 5vw 0 5vw;
 }
 
 .frete i {
   font-size: 2.5vw;
   margin: 0 5px 0 0;
+  color: #382C2C;
+  margin: 0 1vw 0 0;
 }
 
 .frete ul li {
+  display: flex;
   font-size: 1.3vw;
+  align-items: center;
+}
+
+.frete ul li p{
+  font-size: 1.5vw;
 }
 
 .frete ul hr {
@@ -483,25 +504,6 @@ section.lancamentos div img {
 
 
 /*========================= Carrinho2 =========================*/
-
-/* .adicionado {
-  display: flex;
-  padding: 2.5vw;
-  border-bottom: #b8b8b8 solid 2px;
-}
-
-.adicionado img {
-  margin: 0 1vw 0 0;
-}
-
-.adicionado h1 {
-  font-size: 1.5vw;
-  font-weight: bold;
-}
-
-.adicionado p {
-  margin: 1vw 0 1vw 0;
-} */
 
 table {
   border-collapse: collapse;
@@ -525,23 +527,53 @@ table tr td {
   vertical-align: middle;
 }
 
+
+.titulo-texto{
+  text-align: left;
+}
+
+
+
 table tr td.titulo-adicionado{
   display: flex;
 }
 
 table tr td.titulo-adicionado p{
+  margin: 1vw 0 4vw 0;
+  font-weight: 500;
+}
+
+table tr td.titulo-adicionado h2{
   margin: 1vw 0 1vw 0;
+  color: #4F4C57;
 }
 
 table tr td.titulo-adicionado h1{
   font-size: 1.5vw;
   font-weight: bold;
+  margin: 0 0 1vw 0;
 }
 
 table tr td.titulo-adicionado img{
   margin: 0 1vw 0 0;
   width: 7.320644217vw;
   height: 10.980966325vw;
+}
+
+.ad{
+  color: white;
+  border: none;
+  background-color: #27ae60;
+  border-radius: 3.5px;
+  margin: 0 0 0.7vw 0;
+  font-size: 1vw;
+}
+.lixo {
+  background-color: rgb(229, 75, 75);
+  color: white;
+  border: none;
+  border-radius: 3.5px;
+  font-size: 1vw;
 }
 
 
