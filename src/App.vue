@@ -4,14 +4,14 @@ import { ref, computed } from 'vue'
 import footerComp from './components/footer.vue'
 
 const Livros = ref([
-  { id: 1, titulo: 'Nog Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/nog-ognia.png' },
-  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg' },
-  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg' },
-  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.jpg' },
-  { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg' },
-  { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg' },
-  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia2.jpg' },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg' }
+  { id: 1, titulo: 'Noc Ognia', autor: 'Eric-Emanuel Schimitt', preco: 66.50, img: '/img/livros/noc-ognia.jpg', quantidade: 1 },
+  { id: 2, titulo: 'O Alquimista', autor: 'Paulo Coelho', preco: 69.90, img: '/img/livros/paulo_coelho.jpg', quantidade: 1 },
+  { id: 3, titulo: 'O Hobbit', autor: 'J. R. R. Tolkien', preco: 69.90, img: '/img/livros/o_hobbit.jpg', quantidade: 1 },
+  { id: 4, titulo: 'Pegasus e o fogo do Olimpo', autor: 'Kate O Hearn', preco: 41.00, img: '/img/livros/pegasus-e-o-fogo-do-olimpo.png', quantidade: 1 },
+  { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg', quantidade: 1 },
+  { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg', quantidade: 1 },
+  { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg', quantidade: 1 },
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 }
 
 ]);
 
@@ -19,16 +19,16 @@ const carrinhoAparecer = ref(false);
 const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
-function AdicionarCarrinho() {
-  Carrinho.value.push(Livros.value[0])
+function AdicionarCarrinho(livro) {
+  Carrinho.value.push(livro);
 }
 function RemoverCarrinho() {
-  Carrinho.value.pop()
+  Carrinho.value.pop();
 }
 
 // Soma automática baseada no conteúdo do carrinho
 const valorTotal = computed(() => {
-  return Carrinho.value.reduce((total, livro) => total + livro.preco, 0)
+  return Carrinho.value.reduce((total, livro) => total + (livro.preco * livro.quantidade), 0)
 })
 
 const totalCompras = computed(() => {
@@ -39,6 +39,16 @@ const totalCompras = computed(() => {
   }
 });
 
+function contadorSom(adicionado) {
+  adicionado.quantidade++;
+  adicionado.preco + adicionado.preco;
+}
+function contadorSub(adicionado) {
+  if (adicionado.quantidade > 1) {
+    adicionado.quantidade--;
+    adicionado.preco - adicionado.preco;
+  }
+}
 
 </script>
 
@@ -128,8 +138,7 @@ const totalCompras = computed(() => {
         <div><img src="/img/livros/nog-ognia.png" /></div>
       </div>
 
-    </div>
-    <div class="frete">
+      <div class="frete">
         <ul>
           <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
           <hr />
@@ -138,44 +147,55 @@ const totalCompras = computed(() => {
           <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
         </ul>
       </div>
-      
+
       <section class="lancamentos">
         <h2>Lançamentos</h2>
         <div>
           <div v-for="livro in Livros" :key="livro.id">
             <img :src="livro.img" />
-            <h3>{{ livro.titulo }}</h3>
+            <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button @click="AdicionarCarrinho">
+            <button class="verde"  @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
           </div>
         </div>
       </section>
-      
-      </div> 
-      
+
+    </div>
+
     <div v-if="carrinhoAparecer">
       <carrinho />
 
       <div class="carrinho">
         <div class="adicionar">
           <h1>Carrinho</h1>
-          <ul>
-            <li>
-              <p>Título</p>
-            </li>
-            <li>
-              <p>Quantidade</p>
-            </li>
-            <li>
-              <p>Subtotal</p>
-            </li>
-          </ul>
+
+              <p>Itens</p>
+
         </div>
-        <button class="voltar">Voltar para loja</button>
+        <div class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+          <div>
+            <img :src="adicionado.img" height="150" width="100">
+          </div>
+          <div>
+            <h1> {{ adicionado.titulo }} </h1>
+            <p> {{ adicionado.autor }} </p>
+            <p> {{ adicionado.preco }} </p>
+            <div class="quantidade">
+              <button class="ad" @click="contadorSom(adicionado)"><i class="fa-solid fa-plus"></i></button> <span> {{ adicionado.quantidade }} </span> <button class="ad"
+                @click="contadorSub(adicionado)"><i class="fa-solid fa-minus"></i></button>
+            </div>
+            <div class="removerCarrinho">
+              <button class="lixo" @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="App.vue"><button class="voltar">Voltar para loja</button></a>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
             Inserir Cupom
@@ -186,7 +206,7 @@ const totalCompras = computed(() => {
           <ul>
             <li>
               <p>
-                Produtos:<span> R${{ totalCompras.produtos }}</span>
+                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</span>
               </p>
               <hr />
             </li>
@@ -198,7 +218,7 @@ const totalCompras = computed(() => {
             </li>
             <li>
               <p>
-                Total: <span> R${{ totalCompras.total }} </span>
+                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} </span>
               </p>
             </li>
           </ul>
@@ -224,9 +244,7 @@ const totalCompras = computed(() => {
   margin: 0 0 3vw 0;
 }
 
-.adicionar ul {
-  display: flex;
-  justify-content: space-between;
+.adicionar p {
   border-bottom: #27ae60 solid 2px;
   padding: 0 0 1vw 0;
 }
@@ -337,7 +355,7 @@ hr {
   display: none;
 }
 
-/* LANÇAMENTOS */
+/* --------------- LANÇAMENTOS ---------------- */
 
 section.lancamentos {
   margin: 8.5vw;
@@ -350,37 +368,54 @@ section.lancamentos h2 {
 section.lancamentos>div {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  margin: 5vw 0 0 0;
 }
+
 
 
 
 section.lancamentos>div>div {
-  margin: auto;
+  margin: 0 3vw 2vw 0;
+  width: 14.641288433382138vw;
 }
 
 section.lancamentos div h3 {
-  margin: 1vw 0 0 0;
-  font-size: 1vw;
+  margin: 1.5vw 0 1vw 0;
+  font-weight: 450;
+  font-size: 1.5vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
-section.lancamentos div p.autor{
+section.lancamentos div p.autor {
   margin: 0.5vw 0 0.5vw 0;
   color: #4F4C57;
-  font-size: 15px;
+  font-size: 1.1vw;
 }
 
-section.lancamentos div p.preco{
-  font-size: 18px;
+section.lancamentos div p.preco {
+  font-size: 1.25vw;
   font-weight: 500;
-  margin: 0 0 1.5vw 0;
+  margin: 1vw 0 2vw 0;
 }
 
-section.lancamentos div button{
-  background-color: #27AE60;
-  color: white;
+section.lancamentos div button {
   display: flex;
   font-size: 1.1vw;
-  padding: 0.7vw 4vw 0.7vw 4vw;
+  padding: 0.7vw 4.7vw 0.7vw 4.7vw;
+  border: none;
+  border-radius: 5px;
+}
+
+section.lancamentos div img {
+  width: 14.641288433382138vw;
+  height: 21.961932650073205vw;
+  object-fit: cover;
+  position: relative;
+  border-radius: 5px;
 }
 
 /*========================= banner =========================*/
@@ -388,26 +423,80 @@ section.lancamentos div button{
   display: flex;
   justify-content: space-between;
 }
+
 .eric {
   padding: 8.5vw;
 }
+
 .eric h1 {
   font-size: 3.5vw;
   font-weight: bold;
   margin: 0 0 2vw 0;
 }
+
 .eric p {
   padding: 0 23vw 0 0;
   margin: 0 0 2vw 0;
   font-weight: 350;
 }
+
 .frete {
   border-top: #27ae60 solid 2px;
+  border-bottom: #27ae60 solid 2px;
   padding: 5vw;
 }
+
 .frete ul {
-
   display: flex;
+  }
+.frete i {
+  font-size: 2.5vw;
+  margin: 0 5px 0 0;
+}
 
+.frete ul li {
+  font-size: 1.3vw;
+}
+
+.frete ul hr{
+  border-top: #27ae60 solid 2vw;
+}
+
+
+
+
+/*========================= Carrinho2 =========================*/
+.adicionado {
+  display: flex;
+  padding: 2.5vw;
+  border-bottom: #b8b8b8 solid 2px;
+}
+
+.adicionado img {
+  margin: 0 1vw 0 0;
+}
+
+.adicionado h1 {
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+.adicionado p {
+  margin: 1vw 0 1vw 0;
+}
+.ad{
+  color: white;
+  border: none;
+  background-color: #27ae60;
+  border-radius: 3.5px;
+  margin: 0 0 0.7vw 0;
+  font-size: 1vw;
+}
+.lixo {
+  background-color: rgb(229, 75, 75);
+  color: white;
+  border: none;
+  border-radius: 3.5px;
+  font-size: 1vw;
 }
 </style>
