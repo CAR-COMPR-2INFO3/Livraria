@@ -11,7 +11,7 @@ const Livros = ref([
   { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg', quantidade: 1 },
   { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg', quantidade: 1 },
   { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg', quantidade: 1 },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 }
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 },
 
 ]);
 
@@ -27,8 +27,11 @@ function AdicionarCarrinho(livro) {
     livro.quantidade++;
   }
 }
-function RemoverCarrinho() {
-  Carrinho.value.pop();
+function RemoverCarrinho(adicionado) {
+  const remover = Carrinho.value.findIndex(especifico => especifico.id === adicionado.id);
+  if(remover !== -1) {
+    Carrinho.value.splice(remover, 1);
+  }
 }
 
 // Soma automática baseada no conteúdo do carrinho
@@ -176,6 +179,7 @@ function contadorSub(adicionado) {
 
       <div class="carrinho">
         <div class="adicionar">
+          <h1>Carrinho</h1>
           <table>
             <tr>
               <th>
@@ -191,7 +195,7 @@ function contadorSub(adicionado) {
             <tr class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
               <td class="titulo-adicionado">
                 <div>
-                  <img :src="adicionado.img" height="150" width="100">
+                  <img :src="adicionado.img">
                 </div>
                 <div class="titulo-texto">
                   <h1> {{ adicionado.titulo }} </h1>
@@ -208,7 +212,7 @@ function contadorSub(adicionado) {
                     @click="contadorSub(adicionado)">-</button>
                 </div>
               </td>
-              <td>{{ (adicionado.quantidade * adicionado.preco).toLocaleString('pt-BR', {
+              <td class="subtotal">{{ (adicionado.quantidade * adicionado.preco).toLocaleString('pt-BR', {
                   style: 'currency', currency: 'BRL'
                 }) }}</td>
             </tr>
@@ -258,56 +262,7 @@ function contadorSub(adicionado) {
 </template>
 
 <style scoped>
-.carrinho {
-  padding: 4vw;
-}
 
-.adicionar h1 {
-  color: #27ae60;
-  font-size: 2vw;
-  font-weight: bold;
-  margin: 0 0 3vw 0;
-}
-
-.adicionar ul {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: #27ae60 solid 2px;
-  padding: 0 0 1vw 0;
-}
-
-input {
-  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
-  border-radius: 0.2vw;
-  margin: 0 0.6vw 0 0;
-}
-
-.voltar {
-  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
-  border-radius: 0.2vw;
-  background-color: white;
-  border-color: gray;
-  margin: 0 0 4vw 0;
-}
-
-.total {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 0 60vw;
-  padding: 2vw;
-  border: 1px solid black;
-  border-radius: 7px;
-}
-
-.total h2 {
-  margin: 0 0 2vw 0;
-  font-size: 1.3vw;
-  font-weight: bold;
-}
-
-.total p {
-  margin: 0 0 2vw 0;
-}
 
 /*========================= HEADER =========================*/
 
@@ -414,7 +369,7 @@ section.lancamentos div h3 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
+  
 }
 
 section.lancamentos div p.autor {
@@ -505,14 +460,60 @@ section.lancamentos div img {
 
 /*========================= Carrinho2 =========================*/
 
+.carrinho {
+  padding: 4vw;
+}
+
+.adicionar h1 {
+  color: #27ae60;
+  font-size: 2.5vw;
+  font-weight: bold;
+  margin: 0 0 5vw 0;
+}
+
+input {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  margin: 0 0.6vw 0 0;
+}
+
+.voltar {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  background-color: white;
+  border-color: gray;
+  margin: 0 0 4vw 0;
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 60vw;
+  padding: 2vw;
+  border: 1px solid black;
+  border-radius: 7px;
+}
+
+.total h2 {
+  margin: 0 0 2vw 0;
+  font-size: 1.3vw;
+  font-weight: bold;
+}
+
+.total p {
+  margin: 0 0 2vw 0;
+}
+
+
 table {
   border-collapse: collapse;
   table-layout: fixed;
   width: 100%;
+  margin: 0 0 2vw 0;
 }
 
 table tr{
-  border-bottom: #b8b8b8 solid 2px;
+  border-bottom: #27AE60 solid 2px;
 }
 
 table tr th {
@@ -539,7 +540,7 @@ table tr td.titulo-adicionado{
 }
 
 table tr td.titulo-adicionado p{
-  margin: 1vw 0 4vw 0;
+  margin: 1vw 0 2vw 0;
   font-weight: 500;
 }
 
@@ -556,10 +557,11 @@ table tr td.titulo-adicionado h1{
 
 table tr td.titulo-adicionado img{
   margin: 0 1vw 0 0;
-  width: 7.320644217vw;
-  height: 10.980966325vw;
+  width: 9.760858955588092vw;
+  height: 14.641288433382136666666666666667vw;
+  object-fit: cover;
+  position: relative;
 }
-
 .ad{
   color: white;
   border: none;
@@ -568,13 +570,20 @@ table tr td.titulo-adicionado img{
   margin: 0 0 0.7vw 0;
   font-size: 1vw;
 }
+
 .lixo {
   background-color: rgb(229, 75, 75);
   color: white;
   border: none;
   border-radius: 3.5px;
-  font-size: 1vw;
+  font-size: 1.2vw;
 }
+
+.subtotal{
+  font-size: 1.4vw;
+  font-weight: 500;
+}
+
 
 
 
