@@ -590,4 +590,8 @@ table tr td.titulo-adicionado img{
   font-weight: 500;
 }
 
+.quantidade span{
+  margin: 0 0.3vw 0 0;
+}
+
 </style>
