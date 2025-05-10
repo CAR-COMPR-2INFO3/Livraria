@@ -49,10 +49,12 @@ const totalCompras = computed(() => {
 
 function contadorSom(adicionado) {
   adicionado.quantidade++;
+  adicionado.preco + adicionado.preco;
 }
 function contadorSub(adicionado) {
   if (adicionado.quantidade > 1) {
     adicionado.quantidade--;
+    adicionado.preco - adicionado.preco;
   }
 }
 
@@ -208,8 +210,11 @@ function contadorSub(adicionado) {
               </td>
               <td>
                 <div class="quantidade">
-                  <button class="ad" @click="contadorSom(adicionado)">+</button> {{ adicionado.quantidade }} <button class="ad"
-                    @click="contadorSub(adicionado)">-</button>
+                  <button class="ad" @click="contadorSom(adicionado)">
+                  <i class="fa-solid fa-plus"></i>        
+                  </button> <span> {{ adicionado.quantidade }} </span>
+                  
+                  <button class="ad" @click="contadorSub(adicionado)"> <i class="fa-solid fa-minus"></i> </button>
                 </div>
               </td>
               <td class="subtotal">{{ (adicionado.quantidade * adicionado.preco).toLocaleString('pt-BR', {
@@ -222,6 +227,7 @@ function contadorSub(adicionado) {
         <a href="App.vue">
           <button class="voltar">Voltar para loja</button>
         </a>
+
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
             Inserir Cupom
@@ -583,8 +589,5 @@ table tr td.titulo-adicionado img{
   font-size: 1.4vw;
   font-weight: 500;
 }
-
-
-
 
 </style>
