@@ -11,7 +11,7 @@ const Livros = ref([
   { id: 5, titulo: 'O ratinho, o morango vermelho maduro e o grande urso esfomeado', autor: 'Audrey Wood', preco: 64.90, img: '/img/livros/o-ratinho-o-morango-vermelho-maduro-e-o-grande-urso-esfomeado.jpg', quantidade: 1 },
   { id: 6, titulo: 'Pai Rico, pai Pobre: Edição de 20 Anos Atualizada e Ampliada', autor: 'Kiyosaki Robert T', preco: 54.69, img: '/img/livros/pai-rico-pai-pobre.jpg', quantidade: 1 },
   { id: 7, titulo: 'O homem mais rico da Babilônia', autor: 'George S Clason', preco: 34.90, img: '/img/livros/o-homem-mais-rico-da-babilonia.jpg', quantidade: 1 },
-  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 }
+  { id: 8, titulo: 'Nunca deixe de tentar', autor: 'Michael Jordan', preco: 39.90, img: '/img/livros/nunca-deixe-de-tentar.jpg', quantidade: 1 },
 
 ]);
 
@@ -20,10 +20,18 @@ const botao = computed(() => (carrinhoAparecer.value ? 'Esconder' : 'Mostrar'));
 
 const Carrinho = ref([])
 function AdicionarCarrinho(livro) {
-  Carrinho.value.push(livro);
+  if(!Carrinho.value.find(l => l.id === livro.id)){
+    Carrinho.value.push(livro);
+  }
+  else{
+    livro.quantidade++;
+  }
 }
-function RemoverCarrinho() {
-  Carrinho.value.pop();
+function RemoverCarrinho(adicionado) {
+  const remover = Carrinho.value.findIndex(especifico => especifico.id === adicionado.id);
+  if(remover !== -1) {
+    Carrinho.value.splice(remover, 1);
+  }
 }
 
 // Soma automática baseada no conteúdo do carrinho
@@ -140,11 +148,13 @@ function contadorSub(adicionado) {
 
       <div class="frete">
         <ul>
-          <li><i class="fa-solid fa-truck"></i>Frete grátis para SC</li>
+          <li>
+            <i class="fa-solid fa-truck"></i><p>Frete grátis para SC</p>
+          </li>
           <hr />
-          <li><i class="fa-solid fa-star"></i>Livros recomendados</li>
+          <li><i class="fa-solid fa-star"></i><p>Livros recomendados</p></li>
           <hr />
-          <li><i class="fa-solid fa-book"></i>Mais vendidos</li>
+          <li><i class="fa-solid fa-book"></i><p>Mais vendidos</p></li>
         </ul>
       </div>
 
@@ -156,7 +166,7 @@ function contadorSub(adicionado) {
             <h3 class="title">{{ livro.titulo }} </h3>
             <p class="autor">{{ livro.autor }}</p>
             <p class="preco">R$ {{ livro.preco.toFixed(2) }}</p>
-            <button class="verde"  @click="AdicionarCarrinho(livro)">
+            <button class="verde" @click="AdicionarCarrinho(livro)">
               <span class="fi fi-sr-shopping-cart"></span>
               <p>Comprar</p>
             </button>
@@ -172,30 +182,52 @@ function contadorSub(adicionado) {
       <div class="carrinho">
         <div class="adicionar">
           <h1>Carrinho</h1>
-
-              <p>Itens</p>
-
+          <table>
+            <tr>
+              <th>
+                Título
+              </th>
+              <th>
+                Quantidade
+              </th>
+              <th>
+                Subtotal
+              </th>
+            </tr>
+            <tr class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
+              <td class="titulo-adicionado">
+                <div>
+                  <img :src="adicionado.img">
+                </div>
+                <div class="titulo-texto">
+                  <h1> {{ adicionado.titulo }} </h1>
+                  <h2> {{ adicionado.autor }} </h2>
+                  <p> {{ adicionado.preco.toLocaleString('pt-BR', {style: 'currency', currency: 'BRL'}) }} </p>
+                  <div class="removerCarrinho">
+                    <button class="lixo" @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="quantidade">
+                  <button class="ad" @click="contadorSom(adicionado)">
+                  <i class="fa-solid fa-plus"></i>        
+                  </button> <span> {{ adicionado.quantidade }} </span>
+                  
+                  <button class="ad" @click="contadorSub(adicionado)"> <i class="fa-solid fa-minus"></i> </button>
+                </div>
+              </td>
+              <td class="subtotal">{{ (adicionado.quantidade * adicionado.preco).toLocaleString('pt-BR', {
+                  style: 'currency', currency: 'BRL'
+                }) }}</td>
+            </tr>
+          </table>
         </div>
-        <div class="adicionado" v-for="adicionado in Carrinho" :key="adicionado.id">
-          <div>
-            <img :src="adicionado.img" height="150" width="100">
-          </div>
-          <div>
-            <h1> {{ adicionado.titulo }} </h1>
-            <p> {{ adicionado.autor }} </p>
-            <p> {{ adicionado.preco }} </p>
-            <div class="quantidade">
-              <button class="ad" @click="contadorSom(adicionado)"><i class="fa-solid fa-plus"></i></button> <span> {{ adicionado.quantidade }} </span> <button class="ad"
-                @click="contadorSub(adicionado)"><i class="fa-solid fa-minus"></i></button>
-            </div>
-            <div class="removerCarrinho">
-              <button class="lixo" @click="RemoverCarrinho(adicionado)"><span class="fa-solid fa-trash"></span></button>
-            </div>
-          </div>
 
-        </div>
+        <a href="App.vue">
+          <button class="voltar">Voltar para loja</button>
+        </a>
 
-        <a href="App.vue"><button class="voltar">Voltar para loja</button></a>
         <p>
           <input type="text" placeholder="Código do Cupom" /><button class="verde">
             Inserir Cupom
@@ -206,7 +238,9 @@ function contadorSub(adicionado) {
           <ul>
             <li>
               <p>
-                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}</span>
+                Produtos: <span> {{ totalCompras.produtos.toLocaleString('pt-BR', {
+                  style: 'currency', currency: 'BRL'
+                }) }}</span>
               </p>
               <hr />
             </li>
@@ -218,7 +252,8 @@ function contadorSub(adicionado) {
             </li>
             <li>
               <p>
-                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }} </span>
+                Total: <span> {{ totalCompras.total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) }}
+                </span>
               </p>
             </li>
           </ul>
@@ -233,54 +268,7 @@ function contadorSub(adicionado) {
 </template>
 
 <style scoped>
-.carrinho {
-  padding: 4vw;
-}
 
-.adicionar h1 {
-  color: #27ae60;
-  font-size: 2vw;
-  font-weight: bold;
-  margin: 0 0 3vw 0;
-}
-
-.adicionar p {
-  border-bottom: #27ae60 solid 2px;
-  padding: 0 0 1vw 0;
-}
-
-input {
-  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
-  border-radius: 0.2vw;
-  margin: 0 0.6vw 0 0;
-}
-
-.voltar {
-  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
-  border-radius: 0.2vw;
-  background-color: white;
-  border-color: gray;
-  margin: 0 0 4vw 0;
-}
-
-.total {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0 0 60vw;
-  padding: 2vw;
-  border: 1px solid black;
-  border-radius: 7px;
-}
-
-.total h2 {
-  margin: 0 0 2vw 0;
-  font-size: 1.3vw;
-  font-weight: bold;
-}
-
-.total p {
-  margin: 0 0 2vw 0;
-}
 
 /*========================= HEADER =========================*/
 
@@ -387,7 +375,7 @@ section.lancamentos div h3 {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-
+  
 }
 
 section.lancamentos div p.autor {
@@ -448,17 +436,28 @@ section.lancamentos div img {
 
 .frete ul {
   display: flex;
-  }
+  justify-content: space-between;
+  margin: 0 5vw 0 5vw;
+}
+
 .frete i {
   font-size: 2.5vw;
   margin: 0 5px 0 0;
+  color: #382C2C;
+  margin: 0 1vw 0 0;
 }
 
 .frete ul li {
+  display: flex;
   font-size: 1.3vw;
+  align-items: center;
 }
 
-.frete ul hr{
+.frete ul li p{
+  font-size: 1.5vw;
+}
+
+.frete ul hr {
   border-top: #27ae60 solid 2vw;
 }
 
@@ -466,23 +465,108 @@ section.lancamentos div img {
 
 
 /*========================= Carrinho2 =========================*/
-.adicionado {
+
+.carrinho {
+  padding: 4vw;
+}
+
+.adicionar h1 {
+  color: #27ae60;
+  font-size: 2.5vw;
+  font-weight: bold;
+  margin: 0 0 5vw 0;
+}
+
+input {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  margin: 0 0.6vw 0 0;
+}
+
+.voltar {
+  padding: 0.9vw 1.9vw 0.9vw 1.9vw;
+  border-radius: 0.2vw;
+  background-color: white;
+  border-color: gray;
+  margin: 0 0 4vw 0;
+}
+
+.total {
   display: flex;
-  padding: 2.5vw;
-  border-bottom: #b8b8b8 solid 2px;
+  flex-direction: column;
+  margin: 0 0 0 60vw;
+  padding: 2vw;
+  border: 1px solid black;
+  border-radius: 7px;
 }
 
-.adicionado img {
-  margin: 0 1vw 0 0;
-}
-
-.adicionado h1 {
-  font-size: 1.5vw;
+.total h2 {
+  margin: 0 0 2vw 0;
+  font-size: 1.3vw;
   font-weight: bold;
 }
 
-.adicionado p {
+.total p {
+  margin: 0 0 2vw 0;
+}
+
+
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0 0 2vw 0;
+}
+
+table tr{
+  border-bottom: #27AE60 solid 2px;
+}
+
+table tr th {
+  padding: 0 2vw 1vw 2vw;
+  text-align: center;
+  vertical-align: middle;
+}
+
+table tr td {
+  padding: 1vw 2vw 1vw 2vw;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.titulo-texto{
+  text-align: left;
+}
+
+
+
+table tr td.titulo-adicionado{
+  display: flex;
+}
+
+table tr td.titulo-adicionado p{
+  margin: 1vw 0 2vw 0;
+  font-weight: 500;
+}
+
+table tr td.titulo-adicionado h2{
   margin: 1vw 0 1vw 0;
+  color: #4F4C57;
+}
+
+table tr td.titulo-adicionado h1{
+  font-size: 1.5vw;
+  font-weight: bold;
+  margin: 0 0 1vw 0;
+}
+
+table tr td.titulo-adicionado img{
+  margin: 0 1vw 0 0;
+  width: 9.760858955588092vw;
+  height: 14.641288433382136666666666666667vw;
+  object-fit: cover;
+  position: relative;
 }
 .ad{
   color: white;
@@ -492,11 +576,18 @@ section.lancamentos div img {
   margin: 0 0 0.7vw 0;
   font-size: 1vw;
 }
+
 .lixo {
   background-color: rgb(229, 75, 75);
   color: white;
   border: none;
   border-radius: 3.5px;
-  font-size: 1vw;
+  font-size: 1.2vw;
 }
+
+.subtotal{
+  font-size: 1.4vw;
+  font-weight: 500;
+}
+
 </style>
